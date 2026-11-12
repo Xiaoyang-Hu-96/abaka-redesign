@@ -1,15 +1,10 @@
 "use client";
 
 import { useEffect, useId, useState, type FormEvent } from "react";
+import { bad, chipOff, chipOn, field, ok } from "@/components/ui/field";
 import { contact } from "@/lib/content";
 
 const f = contact.form;
-/* v4 text field: hover darkens the border, focus is an ink border with a 3px halo, error is an accent border */
-const field =
-  "w-full border bg-surface-page px-3.5 text-body leading-ui transition-[border-color,box-shadow] duration-(--duration-fast) ease-out " +
-  "focus-visible:border-border-strong focus-visible:shadow-[0_0_0_3px_var(--color-focus-halo)]";
-const ok = "border-grey-300 hover:border-border-hover";
-const bad = "border-accent";
 const label = "text-sm font-medium leading-ui";
 
 /**
@@ -96,7 +91,7 @@ export function ContactForm() {
                 aria-pressed={on}
                 onClick={() => setNeeds(on ? needs.filter((x) => x !== n) : [...needs, n])}
                 className={`border px-3 py-2 text-sm leading-ui transition-colors duration-(--duration-fast) ease-out ${
-                  on ? "border-ink bg-surface-inverse text-text-inverse" : "border-grey-300 text-text-secondary hover:bg-surface-hover hover:text-text-primary"
+                  on ? chipOn : chipOff
                 }`}
               >
                 {n}
