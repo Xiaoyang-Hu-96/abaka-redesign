@@ -8,6 +8,7 @@ A take-home for the Design Technologist role: a redesign of [abaka.ai](https://a
 | Design files (Paper, view only) | [Paper file](https://app.paper.design/file/01M73V6A4J8CG4FQSMJPHQVVMF/p-7-0) |
 | Design philosophy | [`PHILOSOPHY.md`](PHILOSOPHY.md) |
 | Process: research, competitors, decisions, next steps | [`PROCESS.md`](PROCESS.md) |
+| What I cut | [`PROCESS.md` · What I cut](PROCESS.md#7-what-i-cut) |
 | Design system, coded | [`/system`](https://abaka-redesign.vercel.app/system) on the live prototype |
 | Sitemap | [`/sitemap`](https://abaka-redesign.vercel.app/sitemap): every page, what was added, merged or removed, and why |
 | Hero motion reference | [`prototype/abaka-hero.html`](prototype/abaka-hero.html): open it in a browser |
