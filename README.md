@@ -4,7 +4,7 @@ A take-home for the Design Technologist role: a redesign of [abaka.ai](https://a
 
 **Availability for the live walkthrough (PT):**
 
-- 11/13 Fri 9am - 12pm
+- 11/13 Fri 9am - 2pm
 - 11/16 Mon 9am - 11:30am, 12pm - 6pm
 - 11/17 Tue 9am - 11:30am, 12pm - 6pm
 - 11/18 Wed 9am - 6pm
