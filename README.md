@@ -5,7 +5,7 @@ A take-home for the Design Technologist role: a redesign of [abaka.ai](https://a
 | What | Where |
 | --- | --- |
 | Live prototype | [abaka-redesign.vercel.app](https://abaka-redesign.vercel.app) |
-| Design files (Paper, view only) | [Paper file](https://app.paper.design/file/01M73V6A4J8CG4FQSMJPHQVVMF/p-1-0) |
+| Design files (Paper, view only) | [Paper file](https://app.paper.design/file/01M73V6A4J8CG4FQSMJPHQVVMF/p-7-0) |
 | Design philosophy | [`PHILOSOPHY.md`](PHILOSOPHY.md) |
 | Process: research, competitors, decisions, next steps | [`PROCESS.md`](PROCESS.md) |
 | Design system, coded | [`/system`](https://abaka-redesign.vercel.app/system) on the live prototype · source in [`site/`](site) |
