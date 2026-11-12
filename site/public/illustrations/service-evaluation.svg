@@ -1,0 +1,13 @@
+<svg width="128" height="104" viewBox="0 0 128 104" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+  <defs><pattern id="_L2L-0__rtzo960" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.75" fill="#A1A1A1"/></pattern></defs>
+  <polygon points="14,74 58,96 114,68 70,46" fill="none" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" stroke-dasharray="3 3" />
+  <polygon points="16,18 50,35 50,79 16,62" fill="url(#_L2L-0__rtzo960)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <line x1="23" y1="31" x2="43" y2="41" stroke="#141414" stroke-width="1.2" />
+  <line x1="23" y1="40" x2="38" y2="47.5" stroke="#141414" stroke-width="1.2" />
+  <line x1="23" y1="49" x2="43" y2="59" stroke="#141414" stroke-width="1.2" />
+  <polygon points="66,10 108,31 108,83 66,62" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <line x1="74" y1="25" x2="100" y2="38" stroke="#141414" stroke-width="1.2" />
+  <line x1="74" y1="34" x2="94" y2="44" stroke="#141414" stroke-width="1.2" />
+  <line x1="74" y1="43" x2="100" y2="56" stroke="#141414" stroke-width="1.2" />
+  <polyline points="78,58 84,66 98,62" fill="none" stroke="#FD5F32" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

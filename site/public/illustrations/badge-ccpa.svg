@@ -1,0 +1,7 @@
+<svg width="112" height="112" viewBox="0 0 112 112" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0; display: inline-block">
+  <circle cx="56" cy="56" r="55" fill="#FFFFFF" stroke="#EDEDED" />
+  <circle cx="56" cy="56" r="45" fill="none" stroke="#DBDBDB" stroke-dasharray="2 3" />
+  <text x="56" y="40" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1.5" fill="#1414148F">CALIFORNIA</text>
+  <text x="56" y="64" text-anchor="middle" font-family="Inter" font-size="22" font-weight="600" letter-spacing="-0.5" fill="#141414">CCPA</text>
+  <rect x="38" y="74" width="36" height="2" fill="#FD5F32" />
+</svg>

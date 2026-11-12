@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abaka · home hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--page:#f7f6f3;--ink:#141414;--ink2:#4a4843;--ink3:#6b6862;--line:#e4e2dc;--ctl:#cfccc5;--mark:#e8673e;--markText:#b9431c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--ink);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.copy{position:absolute;z-index:2;left:6vw;right:6vw}
+h1{font-weight:600;font-size:clamp(34px,4.7vw,66px);line-height:1.02;letter-spacing:-.035em;margin:0}
+.lede{font-size:clamp(16px,1.35vw,19px);line-height:1.45;color:var(--ink2);margin:0 0 20px;max-width:340px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:500 14px Inter,sans-serif;text-decoration:none;padding:12px 18px;border:1px solid var(--ink);border-radius:2px;color:var(--ink);background:transparent}
+.btn.primary{background:var(--ink);color:#fff}
+.btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero{position:relative;height:100vh;min-height:680px;max-height:900px;overflow:hidden;touch-action:pan-y;border-bottom:1px solid #e7e5df}
+.copy{top:50%;transform:translateY(-50%);right:auto;max-width:46vw}
+h1{font-size:clamp(34px,4.6vw,66px)}
+.lede{margin:20px 0;max-width:440px}
+@media(max-width:899px){.copy{top:5vh;transform:none;max-width:none}}
+</style>
+</head>
+<body>
+<!-- Home hero, "Cells and route". Everything sits on one 8 x 4 grid. Five samples, one per data type, live in cells.
+     The sample under review turns dark, gets an orange box with the label a person gave it, and a route runs
+     along the grid lines to the Annotate cell. Labels are illustrative. All five samples are drawn by the page; none is real data. -->
+<main class="hero" id="hero">
+  <canvas id="cv" aria-hidden="true"></canvas>
+  <div class="copy" id="copy">
+    <h1>Human Intelligence<br>Data for Frontier AI</h1>
+    <p class="lede">All the data you need to build AI, in one place.</p>
+    <div class="btns"><a class="btn primary" href="#">Talk to an expert</a><a class="btn" href="#">Try Forge</a></div>
+  </div>
+</main>
+<script>
+const hero=document.getElementById('hero'),cv=document.getElementById('cv'),ctx=cv.getContext('2d'),copy=document.getElementById('copy'),vid=document.getElementById('vid');
+const INK='#141414',MARK='#e8673e',MARKT='#b9431c',INK3='#6b6862';
+let W=0,H=0,DPR=1,S={al:[.32,.32,.32,.32,.32]},ptr={x:-999,y:-999};
+const clamp=(v,a=0,b=1)=>v<a?a:v>b?b:v,lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t*t*(3-2*t);
+const now=()=>performance.now()/1000;
+function hash(a,b=0,c=0){let h=Math.imul(a|0,374761393)^Math.imul(b|0,668265263)^Math.imul(c|0,1274126177);h=Math.imul(h^(h>>>13),1103515245);return((h^(h>>>16))>>>0)/4294967296}
+function vnoise(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);const a=hash(xi,yi,7),b=hash(xi+1,yi,7),c=hash(xi,yi+1,7),d=hash(xi+1,yi+1,7);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v}
+const small=()=>W<700,pitchH=()=>small()?5:7,margin=()=>Math.max(20,W*.06);
+function size(){DPR=Math.min(2,window.devicePixelRatio||1);const r=hero.getBoundingClientRect();W=Math.round(r.width);H=Math.round(r.height);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0)}
+function bar(x,y,w,h,a,col){ctx.globalAlpha=a;ctx.fillStyle=col||INK;ctx.fillRect(x,y,w,h)}
+function mono(text,x,y,col,align){ctx.globalAlpha=1;ctx.font='500 11px "JetBrains Mono",monospace';ctx.textBaseline='middle';ctx.textAlign=align||'left';ctx.fillStyle=col||INK3;ctx.fillText(text,x,y);ctx.textAlign='left'}
+function tag(text,x,y){ctx.font='500 11px "JetBrains Mono",monospace';const w=ctx.measureText(text).width+12;ctx.globalAlpha=1;ctx.fillStyle=MARK;ctx.fillRect(x,y-18,w,18);ctx.fillStyle=INK;ctx.textBaseline='middle';ctx.fillText(text,x+6,y-8.5)}
+function box(x,y,w,h){ctx.globalAlpha=1;ctx.strokeStyle=MARK;ctx.lineWidth=1.5;ctx.strokeRect(Math.round(x)+.5,Math.round(y)+.5,Math.round(w),Math.round(h))}
+function copyRect(){const a=hero.getBoundingClientRect(),b=copy.getBoundingClientRect();return{top:b.top-a.top,bottom:b.bottom-a.top,left:b.left-a.left,right:b.right-a.left}}
+/* shape drawn as rows of dashes with exact edges: inside(u,v) → bool */
+function fillShape(px,py,pw,ph,inside,pitch,seed,alpha,thk){
+  const rows=Math.floor(ph/pitch),th=thk||Math.max(1.6,pitch*.5);
+  for(let r=0;r<rows;r++){const y=py+r*pitch,v=(r+.5)/rows;let a=-1,k=0;
+    for(let q=0;q<=pw;q++){const on=q<pw&&inside((q+.5)/pw,v);if(on&&a<0)a=q;
+      if(a>=0&&(!on||q-a>=6+hash(r,k,seed)*10)){bar(px+a,y,q-a,th,alpha||.8);a=on?q+2:-1;if(on)q+=1;k++}}}
+}
+const SIG=['text','image','audio','video','3d'];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TAGS=['final_answer','lemon','speaker_a','pedestrian','shelf'];
+/* review order: audio first, because it is the largest sample and the first frame should have one focus */
+const ORDER=[2,1,0,3,4],DWELL=3.6;
+/* every type uses the same dash: 2px thick, one grey; only direction and length change */
+/* tone drawn with one dash: darker areas get longer dashes and smaller gaps. tone(u,v) → 0..1, 0 = empty */
+function fillTone(px,py,pw,ph,tone,P,seed,a,th){const rows=Math.floor(ph/P);
+  for(let r=0;r<rows;r++){const y=py+r*P,v=(r+.5)/rows;let x=0,k=0;
+    while(x<pw){const tn=tone((x+1.5)/pw,v);if(tn<=.03){x+=2;continue}
+      let len=Math.min(pw-x,(3+tn*12)*(.75+.5*hash(r,k,seed)));while(len>2&&tone((x+len)/pw,v)<=.03)len-=1;
+      bar(px+x,y,len,th,a);x+=len+2+(1-tn)*8;k++}}}
+function lemon(pw,ph){const m=Math.min(pw/1.05,ph/.86);return (u,v)=>{const X=(u-.5)*pw/m,Y=(v-.54)*ph/m,q=Math.pow(Math.abs(X)/.36,2.2)+Math.pow(Math.abs(Y)/.25,2);
+  if(q<1||Math.hypot(Math.abs(X)-.375,Y)<.06){if(Math.hypot(X+.14,Y+.1)<.07)return .04;const sh=clamp(.42+X*.9+Y*1.7);return q>.86?Math.max(.85,sh):.06+.9*sh*sh}
+  const lx=X-.1,ly=Y+.33,c=Math.cos(-.5),sn=Math.sin(-.5),lu=lx*c-ly*sn,lv=lx*sn+ly*c;if((lu/.14)**2+(lv/.05)**2<1)return .9;
+  const sy=(Y-.31)/.035;if(Math.abs(sy)<1&&Math.abs(X-.06)<.4*Math.sqrt(1-sy*sy))return .95;return 0}}
+function sigU(i,px,py,pw,ph,a,t){const P=5,TH=2;if(reduced)t=0;
+  if(i===0){const rows=Math.floor(ph/P);let para=0,ln=0;
+    for(let r=0;r<rows;r++){const plen=3+Math.floor(hash(para,0,41)*4);if(ln>=plen){ln=0;para++;continue}
+      const full=ln===plen-1?.25+.4*hash(para,1,42):.82+.18*hash(r,2,43);let x=px,k=0;
+      while(x<px+pw*full){const w=8+hash(r,k,44)*26;bar(x,py+r*P,Math.min(w,px+pw*full-x),TH,a);x+=w+4;k++}ln++}}
+  else if(i===1){fillTone(px,py,pw,ph,lemon(pw,ph),4,51,a,TH)}
+  else if(i===2){const Pa=4,cnt=Math.floor(pw/Pa);for(let k=0;k<cnt;k++){const u=k*.1+t*.6,env=Math.pow(vnoise(u*.22,9.1),1.3),amp=env*(.12+.88*Math.pow(vnoise(u*1.7,3.3),1.6)),h=Math.min(ph,Math.max(3,amp*ph*1.9));bar(px+k*Pa,py+ph/2-h/2,TH,h,a)}}
+  else if(i===3){/* three frames side by side, a figure walking across */
+    const g=pw*.08,fw=(pw-2*g)/3,fh=Math.min(ph,fw*2.6),fy=py+(ph-fh)/2,step=reduced?0:(t*.12)%1*.1;
+    for(let f=0;f<3;f++){const c=.34+f*.12+step;
+      fillShape(px+f*(fw+g),fy,fw,fh,(u,v)=>{const dx=(u-c)*fw/fh;
+        if(Math.hypot(dx,v-.2)<.085)return true;if(Math.abs(dx)<.085&&v>.32&&v<.62)return true;
+        if(v>=.62&&v<.88&&Math.abs(Math.abs(dx)-.05)<.035)return true;return v>.94},P,61+f,a,TH)}}
+  else{const an=reduced?.55:.55+Math.sin(t*.45)*.4,ca=Math.cos(an),sa=Math.sin(an),sc=Math.min(pw,ph)*.56,nx=Math.round(clamp(pw/15,5,12)),ny=Math.round(nx*1.3);
+    const pt=(x,y,z)=>{const X=x*ca-z*sa,Z=x*sa+z*ca,pers=2/(2+Z*.5);bar(px+pw/2+X*sc*pers-2.5,py+ph/2+(y*.86-Z*.1)*sc*pers-1,5,TH,a)};
+    for(let b=0;b<4;b++)for(let ix=0;ix<nx;ix++)for(let iz=0;iz<3;iz++)pt(ix/(nx-1)-.5,-.9+b*.6,(iz/2-.5)*.55);
+    for(let sd=-1;sd<=1;sd+=2)for(let iy=0;iy<ny;iy++)for(let iz=0;iz<3;iz++)pt(sd*.5,-.9+iy/(ny-1)*1.8,(iz/2-.5)*.55)}
+}
+/* 10 · Cells and route: samples live in grid cells; the one under review travels along the grid lines to a column of three steps */
+const HERO={  enter(){S.al=[.32,.32,.32,.32,.32]},
+  draw(t){const big=W>=900,LINE='#e7e5df',c=copyRect();let T,cw=0,ch=0;
+    if(big){const cols=8,rows=4;cw=W/cols;ch=H/rows;const r0=Math.floor((c.top-12)/ch),r1=Math.floor((c.bottom+12)/ch);
+      ctx.globalAlpha=1;ctx.strokeStyle=LINE;ctx.lineWidth=1;
+      for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){if(i<4&&j>=r0&&j<=r1)continue;ctx.strokeRect(Math.round(i*cw)+.5,Math.round(j*ch)+.5,Math.round(cw),Math.round(ch))}
+      T=[[0,0,1,1],[3,3,1,1],[4,2,2,1],[5,0,1,1],[1,3,1,1]]}
+    else{const m=margin(),w=(W-2*m-4*8)/5;T=[0,1,2,3,4].map(k=>[m+k*(w+8),c.bottom+40,w,w*1.1])}
+    const R=k=>big?[T[k][0]*cw,T[k][1]*ch,T[k][2]*cw,T[k][3]*ch]:T[k];
+    /* a sample whose cell would sit under the copy is left out, so the text always wins */
+    const ok=k=>{if(!big)return true;const r=R(k);return !(r[0]<W/2-2&&r[1]<c.bottom+12&&r[1]+r[3]>c.top-12)};
+    let hov=-1;for(let k=0;k<5;k++){const r=R(k);if(ok(k)&&ptr.x>=r[0]&&ptr.x<r[0]+r[2]&&ptr.y>=r[1]&&ptr.y<r[1]+r[3])hov=k}
+    if(S.t0===undefined)S.t0=t;let oi=reduced?0:Math.floor((t-S.t0)/DWELL)%5,act=hov>=0?hov:ORDER[oi];while(!ok(act)){oi=(oi+1)%5;act=ORDER[oi]}
+    const pad=big?Math.min(26,ch*.14):2;
+    for(let k=0;k<5;k++){if(!ok(k))continue;const tg=k===act?.9:.26;S.al[k]=reduced?tg:S.al[k]+(tg-S.al[k])*.14;const [x,y,w,h]=R(k);
+      sigU(k,x+pad,y+pad,w-2*pad,h-2*pad-(big?18:0),S.al[k],t);mono(SIG[k],big?x+pad:x,big?y+h-16:y+h+14,k===act?'#4a4843':'#6b6862')}
+    if(big){/* The story of one sample, restarted every time a different one is picked (by the timer or the pointer):
+         0.0-1.1s  a route runs along the grid lines from the sample to the Annotate step
+         1.1-1.5s  the label a person gave it appears
+         1.8-2.4s  the marker moves down the rail to Evaluate
+         2.4s on   Evaluate turns dark and reads "passed"; the marker rests there until the next sample */
+      if(S.act!==act){S.act=act;S.at=t}
+      const te=reduced?99:t-S.at,rx=Math.round(7*cw),sx=(T[act][0]+T[act][2])*cw,sy=T[act][1]*ch,ey=2*ch,L1=rx-sx,L2=Math.abs(ey-sy);
+      const pr=ease(clamp(te/1.1)),d=pr*(L1+L2),arrived=clamp((te-1.0)/.4),p2=ease(clamp((te-1.8)/.6)),passed=clamp((te-2.4)/.3);
+      /* the rail that joins the three steps, with a node at the top of each */
+      ctx.globalAlpha=1;ctx.fillStyle='#bdbab3';ctx.fillRect(rx,Math.round(ch),1,Math.round(3*ch));
+      ctx.fillStyle='#141414';ctx.fillRect(Math.round(sx),Math.round(sy),Math.round(Math.min(d,L1))+1,1);
+      if(d>L1){const len=d-L1;ctx.fillRect(rx,Math.round(ey>sy?sy:sy-len),1,Math.round(len)+1)}
+      if(p2>0)ctx.fillRect(rx,Math.round(ey),1,Math.round(p2*ch)+1);
+      const node=(y,on)=>{ctx.globalAlpha=1;ctx.fillStyle='#f7f6f3';ctx.fillRect(rx-3,Math.round(y)-3,7,7);ctx.strokeStyle=on?'#141414':'#a8a59e';ctx.lineWidth=1;ctx.strokeRect(rx-2.5,Math.round(y)-2.5,6,6);if(on){ctx.fillStyle='#141414';ctx.fillRect(rx-1,Math.round(y)-1,3,3)}};
+      node(ch,true);node(2*ch,arrived>0);node(3*ch,passed>0);
+      const mx=d<L1?sx+d:rx,my=p2>0?ey+p2*ch:d<L1?sy:sy+Math.sign(ey-sy)*(d-L1);ctx.globalAlpha=1;ctx.fillStyle=MARK;ctx.fillRect(Math.round(mx)-3,Math.round(my)-3,7,7);
+      const ix=rx+18;
+      mono('COLLECT',ix,ch+24,'#4a4843');mono('done',ix,2*ch-22,'#6b6862');
+      mono('ANNOTATE',ix,2*ch+24,arrived>0?'#141414':'#6b6862');mono('label',ix,3*ch-44,'#6b6862');
+      ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillStyle='#141414';ctx.globalAlpha=arrived;ctx.textBaseline='middle';ctx.fillText(TAGS[act],ix,3*ch-22);ctx.globalAlpha=1;
+      mono('EVALUATE',ix,3*ch+24,passed>0?'#141414':'#6b6862');
+      if(passed<=0)mono('next',ix,4*ch-22,'#6b6862');
+      if(passed>0){ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillStyle='#141414';ctx.globalAlpha=passed;ctx.textBaseline='middle';ctx.fillText('passed',ix,4*ch-22);ctx.globalAlpha=1}}
+    const a=R(act);box(a[0],a[1],a[2],a[3]);tag(TAGS[act],Math.round(a[0]),Math.round(a[1])+(big&&T[act][1]===0?a[3]+19:1));
+  }
+};
+function draw(){ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,W,H);HERO.draw(now());ctx.globalAlpha=1}
+function loop(){draw();requestAnimationFrame(loop)}
+addEventListener('resize',size);
+hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();ptr.x=e.clientX-r.left;ptr.y=e.clientY-r.top});
+hero.addEventListener('pointerleave',()=>{ptr.x=ptr.y=-999});
+let started=false;const start=()=>{if(started)return;started=true;size();loop()};
+(document.fonts&&document.fonts.load?document.fonts.load('500 11px "JetBrains Mono"').catch(()=>{}):Promise.resolve()).then(start);
+setTimeout(start,1500);
+</script>
+</body>
+</html>

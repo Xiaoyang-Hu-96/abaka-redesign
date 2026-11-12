@@ -1,0 +1,13 @@
+<svg width="128" height="104" viewBox="0 0 128 104" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+  <defs><pattern id="_L3J-0__6e9iey0" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.75" fill="#A1A1A1"/></pattern></defs>
+  <polygon points="64,46 116,72 64,98 12,72" fill="url(#_L3J-0__6e9iey0)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <polygon points="46,49 64,58 64,78 46,69" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <polygon points="64,58 82,49 82,69 64,78" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <polygon points="64,40 82,49 64,58 46,49" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <rect x="38" y="32" width="52" height="54" fill="none" stroke="#FD5F32" stroke-width="1.2" />
+  <rect x="38" y="23" width="28" height="9" fill="#FD5F32" />
+  <rect x="36" y="30" width="4" height="4" fill="#FFFFFF" stroke="#FD5F32" />
+  <rect x="88" y="30" width="4" height="4" fill="#FFFFFF" stroke="#FD5F32" />
+  <rect x="36" y="84" width="4" height="4" fill="#FFFFFF" stroke="#FD5F32" />
+  <rect x="88" y="84" width="4" height="4" fill="#FFFFFF" stroke="#FD5F32" />
+</svg>

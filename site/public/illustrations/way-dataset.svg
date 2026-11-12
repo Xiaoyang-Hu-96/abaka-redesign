@@ -1,0 +1,9 @@
+<svg width="72" height="90" viewBox="24 0 72 90" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+  <defs><pattern id="_P2X-0__utao100" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.75" fill="#A1A1A1"/></pattern></defs>
+  <g>
+    <polygon points="26,31 60,48 60,82 26,65" fill="url(#_P2X-0__utao100)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+    <polygon points="60,48 94,31 94,65 60,82" fill="url(#_P2X-0__utao100)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+    <polygon points="60,14 94,31 60,48 26,31" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+    <polygon points="60,22 78,31 60,40 42,31" fill="none" stroke="#FD5F32" stroke-width="1.2" stroke-linejoin="round" stroke-dasharray="2 2" />
+  </g>
+</svg>

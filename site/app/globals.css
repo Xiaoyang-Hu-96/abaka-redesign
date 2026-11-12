@@ -1,0 +1,96 @@
+@import "tailwindcss";
+/* Design tokens, generated from tokens/tokens.json. Every value below this line comes from there. */
+@import "./tokens.css";
+
+@layer base {
+  html {
+    background: var(--color-surface-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100dvh;
+  }
+  ::selection {
+    background: var(--color-accent-29);
+  }
+
+  /* Focus: a 2px ink ring outside a 2px canvas gap, for keyboard users only. */
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-focus-gap),
+      0 0 0 4px var(--color-focus-ring);
+  }
+
+  /* Reduced motion: colour still changes, nothing moves. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-property: color, background-color, border-color, opacity !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer components {
+  /* Mono labels, e.g. "TRUSTED BY", "01 · COLLECT". */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Section headlines. The accent span is the one orange word group per section. */
+  .display {
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-display);
+    color: var(--color-text-primary);
+    text-wrap: balance;
+  }
+  @media (min-width: 1024px) {
+    .display {
+      font-size: var(--text-display);
+      line-height: var(--leading-display);
+    }
+  }
+  .display em {
+    font-style: normal;
+    color: var(--color-text-accent);
+  }
+
+  /* Hatched surface for "something that does not exist yet" cells. */
+  .hatch {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--color-line) 0 1px,
+      transparent 1px 9px
+    );
+  }
+}

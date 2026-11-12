@@ -1,0 +1,13 @@
+<svg width="128" height="104" viewBox="0 0 128 104" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+  <defs><pattern id="_L24-0__gzalg20" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.75" fill="#A1A1A1"/></pattern></defs>
+  <polygon points="12,62 64,88 64,96 12,70" fill="url(#_L24-0__gzalg20)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <polygon points="64,88 116,62 116,70 64,96" fill="url(#_L24-0__gzalg20)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <polygon points="64,36 116,62 64,88 12,62" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <line x1="55" y1="40.5" x2="107" y2="66.5" stroke="#141414" stroke-width="1.2" />
+  <polygon points="46,54 58,60 46,66 34,60" fill="none" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+  <polygon points="72,60 86,67 74,73 60,66" fill="none" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" stroke-dasharray="3 3" />
+  <polyline points="46,60 73,66.5 62,79" fill="none" stroke="#FD5F32" stroke-width="1.2" stroke-linejoin="round" />
+  <circle cx="46" cy="60" r="2.2" fill="#FD5F32" />
+  <circle cx="73" cy="66.5" r="2.2" fill="#FD5F32" />
+  <path d="M62 79 L74 82 L68 85 L66 91 Z" fill="#141414" stroke="#141414" stroke-linejoin="round" />
+</svg>

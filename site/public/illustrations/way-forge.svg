@@ -1,0 +1,10 @@
+<svg width="72" height="90" viewBox="26 0 72 90" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+  <defs><pattern id="_P42-0__o6qybe0" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.75" fill="#A1A1A1"/></pattern></defs>
+  <g>
+    <polygon points="28,66 62,83 96,66 62,49" fill="url(#_P42-0__o6qybe0)" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+    <polygon points="34,10 88,37 88,71 34,44" fill="#FFFFFF" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" />
+    <line x1="42" y1="22" x2="80" y2="41" stroke="#FD5F32" stroke-width="1.2" />
+    <line x1="42" y1="30" x2="70" y2="44" stroke="#141414" stroke-width="1.2" />
+    <line x1="42" y1="38" x2="76" y2="55" stroke="#141414" stroke-width="1.2" />
+  </g>
+</svg>
