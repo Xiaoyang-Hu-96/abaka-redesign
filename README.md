@@ -47,7 +47,7 @@ Explorations and earlier versions are in the Paper file.
 | **Geist, Geist Mono, Outfit** | Self-hosted. Geist for reading, Geist Mono for data, Outfit only for the `abaka · ai` wordmark. |
 | **Lucide icons** | A 24px grid with a thin stroke, close to the drawn icons in the design. Imported one by one. |
 | **No UI library, no animation library** | The interactions are small: menus, tabs, an accordion, a few canvases. The browser covers them. |
-| **Vercel** | Each push to the working branch deploys the live prototype. |
+| **Vercel** | Each push to the working branch deploys the live prototype. Page views are counted with Vercel Web Analytics, which sets no cookies, so the site needs no consent banner. |
 
 ## How the system works in code
 

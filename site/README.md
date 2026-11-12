@@ -249,7 +249,7 @@ The tree at `/sitemap` shows where each page sits. This is how the system builds
 - **Not done:**
   - No real forms: the newsletter field validates but sends nothing.
   - No CMS.
-  - No analytics.
+  - Analytics is only Vercel Web Analytics: cookieless page views, no consent banner, no events.
 
 ## Checked
 

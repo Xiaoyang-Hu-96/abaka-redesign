@@ -79,7 +79,7 @@ I designed in Paper and built in code, with Claude doing much of the hands-on wo
 
 - **A content layer.** I planned typed Markdown content with schemas, so a new case study or dataset is a new file. A single typed copy file was enough for the prototype.
 - **Machine-readable pages.** Structured data (schema.org Dataset, FAQ), `llms.txt` and plain-text versions of each page. For a company that sells structured data, I would make this a principle.
-- **Real forms and analytics.** The contact form and newsletter check input but send nothing.
+- **Real forms.** The contact form and newsletter check input but send nothing. Page views are counted with Vercel's cookieless Web Analytics, so there is no consent banner.
 - **Keeping Paper in step.** After the first full design, the code became the source of truth. Some Paper boards, the phone mock-up among them, show the earlier version.
 
 ## 8. Next steps, with more time
