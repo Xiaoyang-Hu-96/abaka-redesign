@@ -2,6 +2,8 @@
 
 A take-home for the Design Technologist role: a redesign of [abaka.ai](https://abaka.ai), the philosophy behind it, and the system that makes it repeatable.
 
+**Availability for the live walkthrough:** 11/13 Fri 9am - 12pm PT · 11/16 Mon 9am - 6pm PT
+
 | What | Where |
 | --- | --- |
 | Live prototype | [abaka-redesign.vercel.app](https://abaka-redesign.vercel.app) |
