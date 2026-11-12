@@ -12,6 +12,8 @@
   }
   body {
     min-height: 100dvh;
+    /* section intro rules run the full width of the page; clip them at the viewport, without a scroll container */
+    overflow-x: clip;
   }
   ::selection {
     background: var(--color-accent-29);
@@ -41,13 +43,6 @@
   }
 }
 
-@keyframes panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-}
-
 @keyframes marquee {
   to {
     transform: translateX(-50%);
@@ -69,9 +64,9 @@
   .display {
     font-size: 32px;
     line-height: 36px;
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-heading);
     letter-spacing: var(--tracking-display);
-    color: var(--color-text-primary);
+    color: var(--color-text-heading);
     text-wrap: balance;
   }
   @media (min-width: 1024px) {

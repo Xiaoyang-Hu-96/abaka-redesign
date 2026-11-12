@@ -7,6 +7,7 @@
   --color-raised: #FFFFFF; /** Raised surfaces: hovered cells, dropdown panels. */
   --color-line: #EDEDED; /** Every grid line and divider. */
   --color-ink: #141414; /** The one text colour. Lighter text is this ink at opacity. */
+  --color-ink-88: #141414E0; /** Headings: one step lighter than ink so big type doesn't sit too heavy. */
   --color-ink-72: #141414B8;
   --color-ink-56: #1414148F;
   --color-ink-64: #141414A3; /** Smallest text that still passes AA on canvas (5.45:1). Added in code; Paper still uses ink-56 for labels. */
@@ -18,7 +19,7 @@
   --color-accent-66: #FD5F3266;
   --color-accent-29: #FD5F3229;
   --color-accent-sheen: #FFFFFF29; /** Primary hover: white sheen over the orange. The orange never changes. */
-  --color-active-tint: #FD5F320A;
+  --color-hover-tint: #FD5F320A; /** Accent at 4%. Hover on any surface, canvas or white. */
   --color-grey-100: #F5F5F5;
   --color-grey-200: #EDEDED;
   --color-grey-300: #DBDBDB;
@@ -26,8 +27,9 @@
   --color-grey-500: #BDBDBD;
   --color-grey-600: #A1A1A1;
   --color-grey-700: #8F8F8F;
-  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: var(--font-geist), Geist, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
+  --font-brand: var(--font-outfit), Outfit, system-ui, sans-serif; /** The 'abaka · ai' wordmark in the header only. */
   --text-mono-sm: 11px;
   --text-label: 12px;
   --text-sm: 14px;
@@ -38,6 +40,12 @@
   --text-h3: 24px;
   --text-display: 56px;
   --text-hero: 66px;
+  --text-mono: 13px; /** Mono values in tables (dataset size, format, licence). */
+  --text-micro: 10px; /** Smallest UI type, only inside drawn product windows. */
+  --text-brand: 22px; /** The header wordmark. */
+  --text-lg: 18px; /** FAQ questions, the footer tagline. */
+  --text-ui: 13px; /** Small UI text: announcement bar on mobile, footer bottom bar, menu screens. */
+  --text-hero-sm: 40px; /** The hero headline below lg. */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -48,9 +56,19 @@
   --leading-title: 26px;
   --leading-display: 60px;
   --leading-hero: 67px;
+  --leading-h3: 32px;
+  --leading-micro: 12px;
+  --leading-mono-sm: 14px;
+  --leading-ui: 18px; /** 13px UI text inside drawn product windows. */
+  --leading-row: 28px; /** 20px titles in list rows (feature tour). */
+  --leading-hero-sm: 42px;
   --tracking-display: -0.035em;
   --tracking-tight: -0.02em;
   --tracking-label: 0.14em;
+  --tracking-snug: -0.01em; /** 24px titles. */
+  --tracking-mono: 0.06em; /** Mono column headers in tables. */
+  --tracking-mono-loose: 0.08em; /** Mono section labels inside drawn windows. */
+  --tracking-brand: 0.01em;
   --space-1: 8px;
   --space-2: 12px;
   --space-3: 16px;
@@ -61,8 +79,8 @@
   --space-8: 48px;
   --space-9: 96px;
   --radius-none: 0px; /** Every control is square. */
-  --radius-window: 12px; /** Floating windows only: dropdown panels, product shots. */
-  --container-column: 1240px;
+  --radius-window: 12px; /** Floating windows only: product shots. The nav dropdown is square, hung from the header line. */
+  --container-column: 1112px;
   --container-page: 1440px;
   --breakpoint-sm: 40rem;
   --breakpoint-md: 48rem;
@@ -76,7 +94,11 @@
   --icon-stroke: 1.5;
   --icon-sm: 16px;
   --icon-md: 22px;
+  --shadow-window: 0 12px 32px #1414140F; /** Floating windows and menu panels: ink at 6%, 32px blur, 12px down. */
+  --stroke-strong: 1.5px; /** Annotation boxes drawn inside illustrations. */
+  --delay-hover-intent: 80ms; /** Wait before a hover opens something (menus, Solutions panels), so a passing pointer doesn't. */
   --color-text-primary: var(--color-ink);
+  --color-text-heading: var(--color-ink-88); /** Headings and titles (display, h3, titles, nav panel titles). */
   --color-text-secondary: var(--color-ink-72);
   --color-text-tertiary: var(--color-ink-64); /** Mono labels and captions. Was ink-56 (4.13:1, fails AA at 12px); raised to ink-64 (5.45:1). */
   --color-text-muted: var(--color-ink-40);
@@ -86,7 +108,8 @@
   --color-surface-page: var(--color-canvas);
   --color-surface-raised: var(--color-raised);
   --color-surface-inverse: var(--color-ink);
-  --color-surface-active: var(--color-active-tint);
+  --color-surface-hover: var(--color-hover-tint); /** Hover: rows, cells, tabs, dropdown items, nav items. One rule on every surface. */
+  --color-surface-selected: var(--color-raised); /** Selected or open: the open tab, the open FAQ row, the open nav item. White, the sheet lifted off the desk. */
   --color-border-default: var(--color-line);
   --color-border-strong: var(--color-ink);
   --color-border-hover: var(--color-grey-500);
@@ -101,4 +124,10 @@
   --color-focus-ring: var(--color-ink); /** 2px ring outside a 2px gap. :focus-visible only. */
   --color-focus-gap: var(--color-canvas);
   --color-focus-halo: var(--color-ink-10); /** Text field focus halo, 3px. */
+  --font-weight-heading: var(--font-weight-medium); /** Display and hero headings. Was semibold. */
+  --font-weight-title: var(--font-weight-regular); /** h3s, card and menu item titles. Was medium. */
+  --default-transition-duration: var(--duration-base);
+  --default-transition-timing-function: var(--ease-out);
+  --delay-switch: var(--duration-fast); /** Wait before switching between hovered rows (Four layers), so crossing a border doesn't flicker. */
+  --delay-close: var(--duration-base); /** Wait before a menu closes after the pointer leaves. */
 }

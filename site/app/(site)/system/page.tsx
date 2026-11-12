@@ -17,7 +17,7 @@ function Part({ id, n, title, why, children }: { id: string; n: string; title: s
       <div className="flex flex-col gap-2 border-b border-border-default px-5 py-8 lg:flex-row lg:items-end lg:justify-between lg:px-10">
         <div className="flex flex-col gap-2">
           <p className="label">{n}</p>
-          <h2 id={`${id}-title`} className="text-h3 font-semibold tracking-tight">{title}</h2>
+          <h2 id={`${id}-title`} className="text-h3 font-heading text-text-heading tracking-tight">{title}</h2>
         </div>
         <p className="max-w-[460px] text-sm leading-sm text-text-secondary">{why}</p>
       </div>
@@ -35,7 +35,8 @@ const colors: [string, string, string][] = [
   ["color.text.muted", t.colorTextMuted, "Disabled only. Not for readable text."],
   ["color.text.accent", t.colorTextAccent, "One emphasis per section headline."],
   ["color.surface.page", t.colorSurfacePage, "Page and resting cells."],
-  ["color.surface.raised", t.colorSurfaceRaised, "Hovered cells, panels."],
+  ["color.surface.hover", t.colorSurfaceHover, "Hover, on any surface: cells, rows, tabs, menu items."],
+  ["color.surface.selected", t.colorSurfaceSelected, "Selected or open: the open tab, FAQ row, menu. Also panels."],
   ["color.surface.inverse", t.colorSurfaceInverse, "Announcement bar."],
   ["color.border.default", t.colorBorderDefault, "Every grid line."],
   ["color.action.primary.bg", t.colorActionPrimaryBg, "Primary buttons only."],
@@ -126,7 +127,7 @@ export default function SystemPage() {
         </ul>
       </Part>
 
-      <Part id="type" n="03 · Foundations" title="Type" why="Inter for reading, JetBrains Mono for data: labels, step numbers, units. Monospace says 'this is a value', which is most of what a data company shows.">
+      <Part id="type" n="03 · Foundations" title="Type" why="Geist for reading, Geist Mono for data: labels, step numbers, units. Monospace says 'this is a value', which is most of what a data company shows.">
         <ul className="flex flex-col">
           {type.map(([name, size, sample]) => (
             <li key={name} className="flex items-baseline gap-6 border-b border-border-default py-3 last:border-b-0">
@@ -139,7 +140,7 @@ export default function SystemPage() {
         </ul>
       </Part>
 
-      <Part id="space" n="04 · Foundations" title="Space, grid and breakpoints" why="One 1240px column drawn with 1px lines; every section is cells inside it. The grid is visible on purpose: it is the notebook the data sits in.">
+      <Part id="space" n="04 · Foundations" title="Space, grid and breakpoints" why="One 1112px column drawn with 1px lines; every section is cells inside it. The grid is visible on purpose: it is the notebook the data sits in.">
         <ul className="flex flex-col gap-2">
           {space.map((s, i) => (
             <li key={s} className="flex items-center gap-4">
@@ -194,7 +195,7 @@ export default function SystemPage() {
         <dl className="grid gap-px bg-border-default text-sm lg:grid-cols-2">
           {[
             ["Section header", "Headline with one accent phrase; lead and a single link to the right."],
-            ["Link cell", "Whole cell is the link. Hover lifts it to white and nudges the arrow."],
+            ["Link cell", "Whole cell is the link. Hover tints it light orange and nudges the arrow."],
             ["Data offering", "Category, icon and real dataset names; specs in mono, placeholders bracketed."],
             ["Metrics", "Numbers in mono with their unit, under the claim they support (e.g. experts · countries)."],
             ["Logos", "Shown only with permission; placeholders are labelled as such."],

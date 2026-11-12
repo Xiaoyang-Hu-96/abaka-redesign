@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { brand } from "@/lib/content";
 
 export function LogoMark({ className = "" }: { className?: string }) {
   return (
@@ -8,11 +9,22 @@ export function LogoMark({ className = "" }: { className?: string }) {
   );
 }
 
-export function Logo() {
+/**
+ * default: ink mark and "Abaka AI" (footer).
+ * brand: orange mark and the "abaka · ai" wordmark in Outfit (header, per Home · 4.0).
+ */
+export function Logo({ variant = "default" }: { variant?: "default" | "brand" }) {
+  if (variant === "brand")
+    return (
+      <Link href="/" className="inline-flex items-center gap-2.5 text-accent" aria-label={brand.home}>
+        <LogoMark className="h-[29px] w-7" />
+        <span className="font-brand text-brand font-medium leading-row tracking-brand">{brand.wordmark}</span>
+      </Link>
+    );
   return (
-    <Link href="/" className="inline-flex items-center gap-2.5 text-ink" aria-label="Abaka AI home">
+    <Link href="/" className="inline-flex items-center gap-2.5 text-ink" aria-label={brand.home}>
       <LogoMark className="h-[25px] w-6" />
-      <span className="text-[18px] font-semibold leading-[22px] tracking-tight">Abaka AI</span>
+      <span className="text-lg font-semibold leading-body tracking-tight">{brand.name}</span>
     </Link>
   );
 }

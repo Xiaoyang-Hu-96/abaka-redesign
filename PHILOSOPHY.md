@@ -30,7 +30,7 @@ I keep Abaka's headline, "Human Intelligence Data for Frontier AI", and make eve
 
 ### 3. Motion explains, never performs
 
-Animation appears only when it shows how something works, and content never waits for it. This is why the scroll-pinned dataset dial becomes a catalog a visitor can scan.
+Animation appears only when it shows how something works, and content never waits for it. This is why the scroll-pinned dataset dial becomes a catalog a visitor can scan, and why each moving scene (the hero, the Solutions panels, the raw-to-labelled pair above the last call to action) shows a person labelling the kind of data that section sells. The one exception is the footer wordmark, which shakes under a moving pointer and settles when it stops. It sits below the last action, so nothing waits for it.
 
 ### 4. One main action per page
 
@@ -42,13 +42,13 @@ I am evolving the identity, with one replacement. The logo, grid and orange acce
 
 - **Look:** closer to a lab notebook than a billboard. Tables, units, monospace for data. Annotation marks frame real samples.
 - **Tone:** plain, with numbers and units. "From $15 per formalization" says more than "cost-effective".
-- **Interaction:** orange marks actions only, as a fill behind dark text so it passes contrast. Every button says what happens when you press it.
+- **Interaction:** orange marks two things: what you can do, and what a person labelled. The primary button keeps Abaka's light text on orange for now, which fails contrast (2.78:1); the fix is dark text on the same orange (6.02:1). Every button says what happens when you press it.
 
 ---
 
 ## Assumptions (appendix, not part of the one page)
 
-1. Customers exist but are under NDA, so proof cannot depend on logos or named case studies. The homepage has a "Trusted by" strip with placeholder logos. It shows real logos only with permission, falls back to one anonymised line per customer, and is removed if neither exists.
+1. Customers exist but are under NDA, so proof cannot depend on logos or named case studies. The homepage "Trusted by" strip uses real logos of the kind of lab Abaka serves, so the design shows how the strip reads; Abaka names no customers publicly, so I have not confirmed any of them. Before launch each logo needs permission; without it the strip falls back to one anonymised line per customer, and is removed if neither exists.
 2. The published unit prices reflect real quotes. I quote them as they appear and add none.
 3. Off-the-shelf datasets are a real line of business, even though the current page gives no specifications. Dataset specs in my designs are marked placeholders.
 4. Forge is a maintained self-serve product.

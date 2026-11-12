@@ -1,21 +1,23 @@
 import Link from "next/link";
+import { TextLink } from "@/components/ui/Button";
+import { navPanel } from "@/lib/content";
 import type { NavItem, NavLink } from "@/lib/nav";
 
 /**
- * One dropdown panel. Every panel shares the same shell: a 310px intro cell on the left,
+ * One dropdown panel's content. Every panel has the same layout: a 310px intro cell on the left,
  * cells separated by vertical lines on the right. Only the right side's layout changes.
+ * The shell (canvas, bottom line, shadow) is the Header's, shared by all panels so switching menus doesn't re-open it.
+ * Every item hovers the same way (v4 dropdown item): the cell takes the hover tint and an orange arrow fades in.
  */
 export function NavPanel({ item }: { item: NavItem }) {
   return (
-    <div className="flex overflow-clip rounded-b-window border-b border-border-default bg-surface-raised shadow-[0_12px_32px_rgb(20_20_20/0.06)]">
+    <div className="flex">
       <div className="flex w-[310px] shrink-0 flex-col justify-between gap-3 border-r border-border-default px-10 py-8">
         <div className="flex flex-col gap-3">
-          <p className="text-title font-semibold leading-title">{item.intro.title}</p>
+          <p className="text-title font-heading text-text-heading leading-title">{item.intro.title}</p>
           <p className="text-sm leading-sm text-text-secondary">{item.intro.body}</p>
         </div>
-        <Link href={item.intro.link.href} className="pt-2 text-body font-medium hover:underline underline-offset-4">
-          {item.intro.link.label} →
-        </Link>
+        <TextLink href={item.intro.link.href} className="pt-2 text-body">{item.intro.link.label}</TextLink>
       </div>
       <div className="flex min-w-0 flex-1">
         {item.layout === "icons" && <IconGrid links={item.links!} extra={item.extra} />}
@@ -29,7 +31,8 @@ export function NavPanel({ item }: { item: NavItem }) {
 
 /** Hover for any item inside a panel: canvas fill on the white panel, and an orange arrow fades in. */
 const itemClass =
-  "group relative flex flex-col gap-2.5 px-7 py-6 transition-colors duration-(--duration-fast) ease-out hover:bg-surface-page";
+  "group relative flex flex-col gap-2.5 px-7 py-6 transition-colors duration-(--duration-base) ease-out hover:bg-surface-hover " +
+  "focus-visible:shadow-[inset_0_0_0_2px_var(--color-focus-ring)]"; // v4: keyboard focus is an inset 2px ink ring
 
 function ItemArrow() {
   return (
@@ -63,7 +66,7 @@ function IconGrid({ links, extra }: { links: NavLink[]; extra?: NavLink }) {
                   ) : (
                     <span aria-hidden className="text-title text-accent">+</span>
                   )}
-                  <span className="text-lead font-medium leading-body">{link.label}</span>
+                  <span className="text-lead font-title text-text-heading leading-body">{link.label}</span>
                 </span>
                 <span className={`text-sm leading-sm ${isExtra ? "font-medium text-text-primary" : "text-text-tertiary"}`}>
                   {link.description}
@@ -85,9 +88,9 @@ function Numbered({ links }: { links: NavLink[] }) {
       {links.map((link, i) => (
         <Link key={link.label} href={link.href} className={`${itemClass} flex-1 border-r border-border-default py-8 last:border-r-0`}>
           <span className="label">{String(i + 1).padStart(2, "0")}</span>
-          <span className="text-lead font-medium leading-body">{link.label}</span>
+          <span className="text-lead font-title text-text-heading leading-body">{link.label}</span>
           <span className="flex-1 text-sm leading-sm text-text-secondary">{link.description}</span>
-          <span className="pt-2 text-sm font-medium">Explore →</span>
+          <span className="pt-2 text-sm font-medium">{navPanel.explore}</span>
         </Link>
       ))}
     </>
@@ -98,12 +101,13 @@ function Columns({ item }: { item: NavItem }) {
   return (
     <>
       {item.groups!.map((group) => (
-        <div key={group.label} className="flex flex-1 flex-col gap-5 border-r border-border-default px-7 py-8 last:border-r-0">
-          <p className="label">{group.label}</p>
+        <div key={group.label} className="flex flex-1 flex-col border-r border-border-default py-4 last:border-r-0">
+          <p className="label px-7 pb-1 pt-4">{group.label}</p>
           {group.links.map((link) => (
-            <Link key={link.label} href={link.href} className="group flex flex-col gap-1">
-              <span className="text-lead font-medium leading-body group-hover:underline underline-offset-4">{link.label}</span>
+            <Link key={link.label} href={link.href} className={`${itemClass} gap-1 py-4`}>
+              <span className="text-lead font-title text-text-heading leading-body">{link.label}</span>
               <span className="text-sm leading-sm text-text-secondary">{link.description}</span>
+              <ItemArrow />
             </Link>
           ))}
         </div>
@@ -114,47 +118,48 @@ function Columns({ item }: { item: NavItem }) {
 
 /** Platform panel: one product shot instead of forced categories. Numbers are placeholders. */
 function ProductShot() {
+  const p = navPanel.product;
   const dash = (w: number, accent = false) => (
     <span className="block h-[3px]" style={{ width: w, backgroundImage: `repeating-linear-gradient(90deg, ${accent ? "var(--color-accent)" : "var(--color-grey-500)"} 0 10px, transparent 10px 14px)` }} />
   );
   return (
-    <div className="flex flex-1 overflow-clip bg-surface-page px-10 pt-8" aria-label="Forge analytics screen, illustrative">
-      <div className="flex flex-1 flex-col rounded-t-window border border-b-0 border-border-default bg-surface-raised shadow-[0_12px_32px_rgb(20_20_20/0.06)]">
+    <div className="flex flex-1 overflow-clip bg-surface-page px-10 pt-8" aria-label="Forge analytics screen">
+      <div className="flex flex-1 flex-col rounded-t-window border border-b-0 border-border-default bg-surface-raised shadow-window">
         <p className="border-b border-border-default px-5 py-3 font-mono text-mono-sm tracking-wider text-text-muted">
-          ANNOTATION / PROJECT_[ N ] / ANALYTICS / <span className="text-text-primary">OVERVIEW</span>
+          {p.crumbs}<span className="text-text-primary">{p.current}</span>
         </p>
         <div className="flex flex-1">
-          <ul className="w-[168px] shrink-0 space-y-0.5 border-r border-border-default px-2.5 py-4 text-[13px] text-text-secondary">
-            <li className="px-2.5 py-1.5">Data</li>
-            <li className="px-2.5 py-1.5 font-medium text-text-primary">Analytics</li>
-            <li className="border-l-2 border-accent bg-surface-active py-1.5 pl-5 font-medium text-text-primary">Overview</li>
-            {["Batch", "Team", "Member"].map((l) => (
+          <ul className="w-[168px] shrink-0 space-y-0.5 border-r border-border-default px-2.5 py-4 text-ui text-text-secondary">
+            <li className="px-2.5 py-1.5">{p.menu[0]}</li>
+            <li className="px-2.5 py-1.5 font-medium text-text-primary">{p.menu[1]}</li>
+            <li className="border-l-2 border-accent py-1.5 pl-5 font-medium text-text-primary">{p.menuCurrent}</li>
+            {p.menuSub.map((l) => (
               <li key={l} className="py-1.5 pl-[22px] text-text-tertiary">{l}</li>
             ))}
           </ul>
           <div className="flex flex-1 flex-col">
             <div className="flex border-b border-border-default">
-              {["Active annotators", "Effective annotators", "Total annotators", "Working teams"].map((k) => (
+              {p.metrics.map((k) => (
                 <div key={k} className="flex flex-1 flex-col gap-2 border-r border-border-default px-4 py-4 last:border-r-0">
                   <span className="whitespace-nowrap font-mono text-mono-sm uppercase tracking-wide text-text-muted">{k}</span>
-                  <span className="font-mono text-body">[ n ]</span>
+                  <span className="font-mono text-body">{p.value}</span>
                 </div>
               ))}
             </div>
             <div className="flex flex-1 gap-0">
               <div className="flex flex-1 flex-col gap-3.5 border-r border-border-default p-4">
-                <span className="text-[13px] font-medium">Team quality</span>
+                <span className="text-ui font-medium">{p.quality}</span>
                 {[180, 150, 110, 165].map((w, i) => (
                   <span key={i} className="flex items-center gap-3 font-mono text-mono-sm text-text-tertiary">
-                    team_[ {"abcd"[i]} ] {dash(w, i === 2)}
+                    {p.team[0]}{"abcd"[i]}{p.team[1]} {dash(w, i === 2)}
                   </span>
                 ))}
               </div>
               <div className="flex flex-1 flex-col gap-3.5 p-4">
-                <span className="text-[13px] font-medium">Workflow distribution</span>
-                {[["accepted", 180], ["in review", 125], ["annotating", 90], ["queued", 40]].map(([l, w], i) => (
+                <span className="text-ui font-medium">{p.workflow}</span>
+                {[180, 125, 90, 40].map((w, i) => [p.stages[i], w] as const).map(([l, w], i) => (
                   <span key={l} className={`flex items-center gap-3 font-mono text-mono-sm ${i === 2 ? "text-accent" : "text-text-tertiary"}`}>
-                    <span className="w-20">{l}</span> {dash(w as number, i === 2)}
+                    <span className="w-20">{l}</span> {dash(w, i === 2)}
                   </span>
                 ))}
               </div>

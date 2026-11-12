@@ -4,20 +4,30 @@ A take-home for the Design Technologist role: a redesign of [abaka.ai](https://a
 
 | What | Where |
 | --- | --- |
-| Live prototype | _link added after deployment_ |
+| Live prototype | [abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app](https://abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app) |
 | Design files (Paper, view only) | _link added before submission_ |
 | Design philosophy | [`PHILOSOPHY.md`](PHILOSOPHY.md) |
-| Design system, coded | `/system` on the live prototype · source in [`site/`](site) |
+| Design system, coded | [`/system`](https://abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app/system) on the live prototype · source in [`site/`](site) |
+| Sitemap | [`/sitemap`](https://abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app/sitemap): every page, what was added, merged or removed, and why |
 | Code and technical notes | [`site/README.md`](site/README.md) |
 | Hero motion reference | [`prototype/abaka-hero.html`](prototype/abaka-hero.html): open it in a browser |
 
 ## What is coded
 
-- **Homepage**, desktop and mobile.
-- **`/datasets`**: the catalog, built from the system without a Paper mock first.
-- **`/system`**: tokens, contrast, type, space, motion, buttons and content patterns, all rendered from `site/tokens/tokens.json`.
+Designed in full:
 
-Everything else (sitemap, key pages, navigation states, interaction states) is in the Paper file.
+- **Homepage**, desktop and mobile.
+- **`/datasets`**: why off the shelf, featured datasets with prices, and the catalog.
+- **`/solutions/physical-ai`**: the template for the other solution and service pages.
+- **`/contact`**: the brief form every primary button leads to.
+
+The rest of the site:
+
+- **Every other page** the site links to renders from one shared template (`site/components/page/TemplatePage.tsx`) with its own content entry: hero, a bento of cells, FAQ and call to action.
+- **`/system`**: tokens, contrast, type, space, motion, buttons and content patterns, all rendered from `site/tokens/tokens.json`.
+- **`/sitemap`**: the information architecture as a tree.
+
+Design explorations, navigation states and interaction states are in the Paper file.
 
 ## Run it
 
@@ -27,4 +37,4 @@ npm install
 npm run dev
 ```
 
-Values in `[ brackets ]` are placeholders for facts Abaka does not publish. The customer logos are placeholders too.
+Values in `[ brackets ]` are placeholders for facts Abaka does not publish. The customer logos are real wordmarks, but Abaka names no customers publicly, so none is confirmed (see assumption 1 in `PHILOSOPHY.md`).

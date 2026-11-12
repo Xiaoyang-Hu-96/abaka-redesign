@@ -1,15 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
+import { colorInk } from "@/lib/tokens";
 
 // Self-hosted at build time, latin subset only. No layout shift, no third-party request.
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-geist-mono", display: "swap" });
+// the header wordmark only
+const outfit = Outfit({ subsets: ["latin"], weight: ["500"], variable: "--font-outfit", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Abaka AI · Human Intelligence Data for Frontier AI",
@@ -18,12 +16,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#141414",
+  themeColor: colorInk,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${outfit.variable} scroll-pt-16 lg:scroll-pt-24`}>
       <body>
         <a
           href="#main"

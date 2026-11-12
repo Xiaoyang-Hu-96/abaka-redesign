@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
+import { cta, hero } from "@/lib/content";
 import { createHero } from "./hero-engine";
 
 /**
@@ -29,31 +30,42 @@ export function Hero() {
     io.observe(cv);
     const ro = new ResizeObserver(() => hero.resize());
     ro.observe(cv);
+    // Hovering a sample puts it under review (wide screens only; the engine ignores it in the 2x2 layout).
+    const move = (e: PointerEvent) => { const r = cv.getBoundingClientRect(); hero.pointer(e.clientX - r.left, e.clientY - r.top); };
+    const leave = () => hero.pointer(null);
+    box.addEventListener("pointermove", move);
+    box.addEventListener("pointerleave", leave);
     // Draw once fonts are ready so the mono labels measure correctly.
     document.fonts?.ready.then(() => hero.resize());
-    return () => { io.disconnect(); ro.disconnect(); hero.stop(); };
+    return () => {
+      io.disconnect(); ro.disconnect(); hero.stop();
+      box.removeEventListener("pointermove", move); box.removeEventListener("pointerleave", leave);
+    };
   }, []);
 
   return (
     <section aria-labelledby="hero-title" className="border-b border-border-default">
-      <div ref={frame} className="relative lg:h-[900px]">
+      {/* Wide screens: the hero fills what is left of the first screen under the announcement band
+          (40px bar inset 12px: 64px), header (96px + 1px line) and the hero's own 1px bottom line, between 560px and
+          900px. The 4 grid rows split that height, so the whole route stays above the fold. */}
+      <div ref={frame} className="relative lg:h-[clamp(560px,calc(100svh-162px),900px)]">
         <div
           ref={copy}
-          className="flex flex-col gap-5 border-b border-border-default px-5 pb-8 pt-10 lg:absolute lg:left-10 lg:top-[327px] lg:z-10 lg:max-w-[580px] lg:border-0 lg:p-0"
+          className="flex flex-col gap-5 border-b border-border-default px-5 pb-8 pt-10 lg:absolute lg:left-10 lg:top-1/2 lg:z-10 lg:max-w-[580px] lg:-translate-y-1/2 lg:border-0 lg:p-0"
         >
           <h1
             id="hero-title"
-            className="text-[40px] font-semibold leading-[42px] tracking-(--tracking-display) lg:text-hero lg:leading-(--leading-hero)"
+            className="text-hero-sm font-heading text-text-heading leading-hero-sm tracking-(--tracking-display) lg:text-hero lg:leading-(--leading-hero)"
           >
-            Human Intelligence <br className="hidden lg:block" />
-            Data for Frontier AI
+            {hero.title[0]} <br className="hidden lg:block" />
+            {hero.title[1]}
           </h1>
-          <p className="text-lead leading-lead text-text-secondary lg:text-hero-lead lg:leading-[28px]">
-            All the data you need to build AI, in one place.
+          <p className="text-lead leading-lead text-text-secondary lg:text-hero-lead lg:leading-row">
+            {hero.lead}
           </p>
           <div className="flex flex-col gap-2.5 pt-1 lg:flex-row">
-            <Button href="/contact" size="lg">Talk to an expert</Button>
-            <Button href="/platform" variant="secondary" size="lg">Try Forge</Button>
+            <Button href={cta.expert.href} size="lg">{cta.expert.label}</Button>
+            <Button href={cta.forge.href} variant="secondary" size="lg">{cta.forge.label}</Button>
           </div>
         </div>
         <canvas

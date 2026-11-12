@@ -9,7 +9,8 @@ import path from "node:path";
 const cache = new Map<string, string>();
 
 function load(name: string) {
-  if (!cache.has(name)) {
+  // re-read in dev so a regenerated SVG shows without restarting the server
+  if (!cache.has(name) || process.env.NODE_ENV === "development") {
     const raw = readFileSync(path.join(process.cwd(), "public/illustrations", `${name}.svg`), "utf8");
     const svg = raw
       .replace(/<svg([^>]*?)\s(width|height)="[^"]*"/g, "<svg$1")

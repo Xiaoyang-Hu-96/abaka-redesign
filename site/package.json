@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "tokens": "node scripts/build-tokens.mjs",
+    "scanlines": "for f in cta-raw cta-labelled; do node scripts/scanline-svg.mjs scripts/illustration-src/$f.svg public/illustrations/$f.svg; done && node scripts/scanline-svg.mjs --wordmark scripts/illustration-src/wordmark-mask.png public/illustrations/wordmark.svg --pitch 6",
     "predev": "npm run tokens",
     "prebuild": "npm run tokens"
   },

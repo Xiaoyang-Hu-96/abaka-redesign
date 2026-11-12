@@ -155,7 +155,7 @@ export const nav: NavItem[] = [
         label: "Support",
         links: [
           { label: "FAQ", href: "/#faq", description: "Pricing, security and delivery", icon: CircleHelp },
-          { label: "Talk to an expert", href: "/contact", description: "We reply within an hour", icon: MessageSquare },
+          { label: "Talk to an expert", href: "/contact", description: "We reply within 1 business day", icon: MessageSquare },
         ],
       },
     ],
