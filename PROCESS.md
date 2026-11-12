@@ -72,7 +72,7 @@ I designed in Paper and built in code, with Claude doing much of the hands-on wo
 - **Copy lives in one file.** `site/lib/content.ts` holds every sentence, so writing and layout can change separately.
 - **The map can't drift.** If the site links to a page that isn't on `/sitemap`, the build fails.
 - **New pages are cheap.** Every page without its own design renders from one template with its own content entry. Adding a page is adding an entry.
-- **A stack most teams already read.** Next.js with static pages, TypeScript, Tailwind fed by the tokens, no UI or animation library. Every page is content, so nothing needs a server at request time. The full reasoning, including why not Astro, is in `site/README.md`.
+- **A stack most teams already read.** Next.js with static pages, TypeScript, Tailwind fed by the tokens, no UI or animation library. Every page is content, so nothing needs a server at request time. The full reasoning, including why not Astro, is in the README.
 - **Open items are marked.** Answers Abaka still has to confirm carry `confirm: true`. The two contrast issues are listed on `/system` with their fixes.
 
 ## 7. What I cut
