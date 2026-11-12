@@ -4,11 +4,11 @@ A take-home for the Design Technologist role: a redesign of [abaka.ai](https://a
 
 | What | Where |
 | --- | --- |
-| Live prototype | [abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app](https://abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app) |
+| Live prototype | [abaka-redesign.vercel.app](https://abaka-redesign.vercel.app) |
 | Design files (Paper, view only) | _link added before submission_ |
 | Design philosophy | [`PHILOSOPHY.md`](PHILOSOPHY.md) |
-| Design system, coded | [`/system`](https://abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app/system) on the live prototype · source in [`site/`](site) |
-| Sitemap | [`/sitemap`](https://abaka-redesign-git-site-build-mshuxy-3983s-projects.vercel.app/sitemap): every page, what was added, merged or removed, and why |
+| Design system, coded | [`/system`](https://abaka-redesign.vercel.app/system) on the live prototype · source in [`site/`](site) |
+| Sitemap | [`/sitemap`](https://abaka-redesign.vercel.app/sitemap): every page, what was added, merged or removed, and why |
 | Code and technical notes | [`site/README.md`](site/README.md) |
 | Hero motion reference | [`prototype/abaka-hero.html`](prototype/abaka-hero.html): open it in a browser |
 
